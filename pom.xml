@@ -12,7 +12,7 @@
 
   <groupId>org.mybatis</groupId>
   <artifactId>mybatis-n</artifactId>
-  <version>3.5.15.1-SNAPSHOT</version>
+  <version>3.5.15.4-SNAPSHOT</version>
 
   <name>mybatis-n</name>
   <description>
@@ -110,6 +110,11 @@
   </distributionManagement>
 
   <properties>
+    <java.version>21</java.version>
+    <java.release.version>21</java.release.version>
+    <java.test.version>21</java.test.version>
+    <java.test.release.version>21</java.test.release.version>
+
     <maven.min-version>3.9.2</maven.min-version>
 
     <clirr.comparisonVersion>3.4.6</clirr.comparisonVersion>
@@ -406,69 +411,28 @@
 
   <profiles>
     <profile>
-      <id>pre16</id>
-      <activation>
-        <jdk>(,16)</jdk>
-      </activation>
-      <properties>
-          <derby.version>10.15.2.0</derby.version>
-          <mssql-jdbc.version>12.4.2.jre8</mssql-jdbc.version>
-      </properties>
-      <build>
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-compiler-plugin</artifactId>
-              <configuration>
-                <testExcludes>
-                  <testExclude>**/record_type/*.java</testExclude>
-                </testExcludes>
-              </configuration>
-            </plugin>
-            <plugin>
-              <groupId>net.revelc.code</groupId>
-              <artifactId>impsort-maven-plugin</artifactId>
-              <configuration>
-                <skip>true</skip>
-              </configuration>
-            </plugin>
-          </plugins>
-        </pluginManagement>
-      </build>
-    </profile>
-    <profile>
-      <id>16</id>
-      <activation>
-        <jdk>[16,)</jdk>
-      </activation>
-      <properties>
-        <derby.version>10.15.2.0</derby.version>
-        <java.version>16</java.version>
-        <java.release.version>16</java.release.version>
-        <java.test.version>16</java.test.version>
-        <java.test.release.version>16</java.test.release.version>
-        <excludedGroups>TestcontainersTests,RequireIllegalAccess</excludedGroups>
-      </properties>
-    </profile>
-    <profile>
-      <id>17</id>
-      <activation>
-        <jdk>[17,)</jdk>
-      </activation>
-      <properties>
-          <derby.version>10.16.1.1</derby.version>
-      </properties>
-    </profile>
-    <profile>
       <id>21</id>
       <activation>
         <jdk>[21,)</jdk>
       </activation>
       <properties>
-          <derby.version>10.17.1.0</derby.version>
+        <derby.version>10.17.1.0</derby.version>
         <mssql-jdbc.version>12.5.0.jre11-preview</mssql-jdbc.version>
       </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.gaul</groupId>
+            <artifactId>modernizer-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>modernizer</id>
+                <phase>none</phase>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
   </profiles>
 
